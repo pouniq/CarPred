@@ -1,9 +1,13 @@
-import readme_renderer
 import pandas as pd
 
-df = pd.read_csv("cars_scraped.csv")
-df
+
+data1 = pd.read_csv('CSV/output.csv')
+data2 = pd.read_csv("CSV/output1.csv")
+lil_data = pd.read_csv("CSV/divar_listings.csv")
 
 # first extract the date of production from the `car` column
 # and for cars that do not have them look for that manually
-date = [1390,1389,1394,1390,1394,1390,1387,1390,None,None,1396,1392,1385,None,None,1387,1390,1389,None,1389,1387,1390,1384]
+df = pd.concat([data1, data2], ignore_index=True)
+# first data loaded to csv
+
+df.to_csv('final.csv', index=False, encoding='utf-8')
