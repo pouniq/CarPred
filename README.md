@@ -22,3 +22,9 @@
 ## #7 HyperParameter Tuning
 ## #8 Training The best Model
 ## #9 Model Evaluation
+
+
+### @ Mehdi
+
+- [] چک کردن درست بودن دیتا ها با توجه به لینکهایی که در هر سطر قرار داره
+- [] بررسی داده های گمشده با توجه به لینک های هر سطر
