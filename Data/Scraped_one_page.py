@@ -19,6 +19,21 @@ def extract_numbers(text):
     normalized = normalized.replace(",", "").replace("،", "")  # strip both comma types
     return [int(n) for n in re.findall(r"\d+", normalized)]
 
+
+
+full_links1 = ['https://divar.ir/v/%D8%B1%DB%8C%D9%88-85-%D8%AF%D8%B1-%D8%AD%D8%AF/garRITov?tracker_session_id=8250e31c-348c-4947-843c-1632a5e2fadd_garRITov_N',
+               'https://divar.ir/v/%D8%B1%DB%8C%D9%88-%D9%85%D9%88%D9%86%D8%AA%D8%A7%DA%98-%D9%85%D8%AF%D9%84-%DB%B8%DB%B9-%DA%A9%D9%85-%DA%A9%D8%A7%D8%B1%DA%A9%D8%B1%D8%AF/gar9XLad?tracker_session_id=8250e31c-348c-4947-843c-1632a5e2fadd_gar9XLad_N',
+               'https://divar.ir/v/%D8%B1%DB%8C%D9%88-%D9%85%D8%AF%D9%84-87/garZ43T-?tracker_session_id=8250e31c-348c-4947-843c-1632a5e2fadd_garZ43T-_N',
+               'https://divar.ir/v/%D8%B1%DB%8C%D9%88-%DA%A9%DB%8C%D8%A7-%D9%85%D8%AF%D9%84-%DB%B8%DB%B7/garxXQNb?tracker_session_id=8250e31c-348c-4947-843c-1632a5e2fadd_garxXQNb_N',
+               'https://divar.ir/v/%DA%A9%DB%8C%D8%A7-%D8%B1%DB%8C%D9%88-ls/garhnF6O?tracker_session_id=8250e31c-348c-4947-843c-1632a5e2fadd_garhnF6O_N',
+               'https://divar.ir/v/%D8%B1%DB%8C%D9%88-%D8%A7%D8%AA%D9%88%D9%85%D8%A7%D8%AA-%DB%B8%DB%B8-%D8%B3%D9%81%DB%8C%D8%AF-%DB%B2%DB%B6%DB%B6%D9%87%D8%B2%D8%A7%D8%B1/gausVfcb?tracker_session_id=8250e31c-348c-4947-843c-1632a5e2fadd_gausVfcb_N',
+               'https://divar.ir/v/%D8%B1%DB%8C%D9%88-%DB%B8%DB%B5-%D9%84%D8%A7-%DA%A9%D8%A7%D8%BA%D8%B0%DB%8C/garRX3is?tracker_session_id=8250e31c-348c-4947-843c-1632a5e2fadd_garRX3is_N',
+               'https://divar.ir/v/%D8%B1%DB%8C%D9%88-%D9%85%D8%AF%D9%84-%DB%B1%DB%B3%DB%B8%DB%B5/gar5G-lw?tracker_session_id=8250e31c-348c-4947-843c-1632a5e2fadd_gar5G-lw_N',
+               'https://divar.ir/v/%D8%B1%DB%8C%D9%88-86/garx25Hr?tracker_session_id=8250e31c-348c-4947-843c-1632a5e2fadd_garx25Hr_N',
+               'https://divar.ir/v/%D8%B1%DB%8C%D9%88-%D9%85%D8%AF%D9%84-%DB%B8%DB%B9/garpmydH?tracker_session_id=8250e31c-348c-4947-843c-1632a5e2fadd_garpmydH_N',
+               'https://divar.ir/v/%D8%B1%DB%8C%D9%88-%D8%AF%D9%86%D8%AF%D9%87-%D8%A7%DB%8C-%D8%A8%DB%8C-%D8%B1%D9%86%DA%AF/garlWJNw?tracker_session_id=8250e31c-348c-4947-843c-1632a5e2fadd_garlWJNw_N',
+               'https://divar.ir/v/%DA%A9%DB%8C%D8%A7-%D8%B1%DB%8C%D9%88-%D9%88%D8%A7%D8%B1%D8%AF%D8%A7%D8%AA%DB%8C-2015/gard2ay9?tracker_session_id=8250e31c-348c-4947-843c-1632a5e2fadd_gard2ay9_N']
+
 pages = {}
 failed_debug_dir = "failed_pages"
 import os
@@ -29,7 +44,7 @@ with sync_playwright() as p:
     context = browser.new_context(user_agent=USER_AGENT, locale="fa-IR")
     page = context.new_page()
 
-    for i, url in enumerate(full_links):
+    for i, url in enumerate(full_links1):
         success = False
         for attempt in range(3):  # retry up to 3 times
             try:
@@ -89,5 +104,5 @@ df['price'] = df['price'].astype('Int64')       # nullable integer, keeps NaN as
 df['insurance'] = df['insurance'].astype('Int64')
 df['price_toman'] = df['price'].apply(lambda x: f"{x:,} تومان" if pd.notna(x) else None)
 
-df.to_csv("output1.csv", index=False, encoding="utf-8-sig")
+df.to_csv("CSV/output2.csv", index=False, encoding="utf-8-sig")
 print(df)
