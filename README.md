@@ -1,5 +1,16 @@
 # Cars_prediction
+
+
 ## #1 Problem Statement
+
+In this project We are taking/getting Kia: Rio car prices and making Sense of that data, in the future we are putting Machine learning pipelines.
+
+
+
+
+
+
+
 ## #2 Data Source
 
 ### folder in use: `Data`
