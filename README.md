@@ -41,4 +41,5 @@ In this project We are taking/getting Kia: Rio car prices and making Sense of th
 ### @ Mehdi
 
 - [ ]  چک کردن درست بودن دیتا ها با توجه به لینکهایی که در هر سطر قرار داره
+- [ ]  ذخیره و تهیه لینک های مربوط به ماشین `کیا ریو`
 - [ ]  بررسی داده های گمشده با توجه به لینک های هر سطر
