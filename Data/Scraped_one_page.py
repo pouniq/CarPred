@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from playwright.sync_api import sync_playwright
 
-with open("links1.txt", 'r', encoding='utf-8') as f:
+with open("Links/links1.txt", 'r', encoding='utf-8') as f:
     full_links = [line.strip() for line in f if line.strip()]
 
 USER_AGENT = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
