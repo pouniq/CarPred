@@ -31,7 +31,9 @@ for col in num_cols:
 # some outliers with `price` column
 
 
-df.duplicated().sum()
+mask = df.duplicated()
+df[mask]
+df = df.drop_duplicates()
 
 df[num_cols].mean()
 df[num_cols].var()
@@ -54,7 +56,7 @@ print(df.value_counts())
 
 df.groupby('color').value_counts()
 
-num_cols.corr()
+df[num_cols].corr()
 sns.heatmap(num_cols.corr(), cmap = 'coolwarm')
 plt.show()
 
@@ -67,6 +69,39 @@ plt.show()
 
 
 
+### Bi-Variant EDA:
+num_pairs = [
+    ('mileage', 'date'),
+    ('mileage', 'insurance'),
+    ('mileage' , 'price'),
+    ('date' , 'insurance'),
+    ('date' , 'price'),
+    ('insurance' , 'price')
+]
+
+for x,y in num_pairs:
+   plt.figure(figsize=(5,3)) 
+   sns.scatterplot(x = df[x] , y=df[y])
+   plt.title(f'{x} vs. {y}')
+   plt.xlabel(x)
+   plt.ylabel(y)
+   plt.show()
+   
+   
+plt.figure(figsize=(5,3))
+sns.boxplot(x = df['color'] , y= df['price'])
+plt.title('Color vs Price boxplot')
+
+
+df[num_cols].groupby(df['color']).count()
+df[num_cols].groupby(df['color']).mean()
+df[num_cols].groupby(df['color']).median()
+
+
+sns.pairplot(df, hue='color')
+plt.tight_layout()
+plt.show()
+
 #############Findings###################
 # 1. We found in My data that price (targer feature) is not
 # in a good place (distribution wise) so I may need to get more data
@@ -74,5 +109,5 @@ plt.show()
 
 # 2. we have 7 missing values in insurance column
 # 3. some outliers with `price` column -- think about how can you handle them
-
+# 4. Most important features for `price` column is `date` & `mileage`
 ########################################
