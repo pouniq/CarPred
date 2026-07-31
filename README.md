@@ -30,6 +30,17 @@ In this project We are taking/getting Kia: Rio car prices and making Sense of th
 
 
 ## #3 EDA
+
+1. We found in My data that price (targer feature) is not
+in a good place (distribution wise) so I may need to get more data
+or limit and max out prices.
+
+2. we have 7 missing values in insurance column
+3. some outliers with `price` column -- think about how can you handle them
+4. Most important features for `price` column, is `date` & `mileage`
+
+
+
 ## #4 Data Preprocessing
 ## #5 Baseline Model
 ## #6 Model Selection
