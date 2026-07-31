@@ -36,7 +36,7 @@ def extract_numbers(text):
 df["mileage"] = df["mileage"].apply(lambda x: extract_numbers(x)[0] if extract_numbers(x) else None)
 df['date'] = df['date'].apply(lambda x: extract_numbers(x)[0] if extract_numbers(x) else None)
 
-df_fin['color'].unique()
+df['color'].unique()
 
 
 # to make the color feature more in place
@@ -55,7 +55,7 @@ color_rep = {
    'بژ': 'Brown'
 }
 
-df_fin['color'] = df_fin['color'].replace(color_rep)
+df['color'] = df['color'].replace(color_rep)
 df
 
 # save to csv
