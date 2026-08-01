@@ -7,7 +7,7 @@ import re
 # data3 = pd.read_csv('CSV/output2.csv')
 # lil_data = pd.read_csv("CSV/divar_listings.csv")
 
-
+data4 = pd.read_csv('CSV/output2.csv')
 
 # first extract the date of production from the `car` column
 # and for cars that do not have them look for that manually
@@ -17,11 +17,6 @@ import re
 df = pd.read_csv("CSV/final.csv")
 
 
-
-cols_to_check = [c for c in df.columns if c != "link"]
-
-df.duplicated(subset=cols_to_check).sum()
-df = df.drop_duplicates(subset=cols_to_check)
 
 
 persian_digits = "۰۱۲۳۴۵۶۷۸۹"
@@ -33,15 +28,11 @@ def extract_numbers(text):
     return [int(n) for n in re.findall(r"\d+", normalized)]
 
 
-df["mileage"] = df["mileage"].apply(lambda x: extract_numbers(x)[0] if extract_numbers(x) else None)
-df['date'] = df['date'].apply(lambda x: extract_numbers(x)[0] if extract_numbers(x) else None)
+data4["mileage"] = data4["mileage"].apply(lambda x: extract_numbers(x)[0] if extract_numbers(x) else None)
+data4['date'] = data4['date'].apply(lambda x: extract_numbers(x)[0] if extract_numbers(x) else None)
 
-df['color'].unique()
+data4['color'].unique()
 
-
-# to make the color feature more in place
-# I made colors that look like each other into one 
-# category
 
 color_rep = {
     'نوک‌مدادی': 'Gray',
@@ -52,11 +43,28 @@ color_rep = {
     'طوسی' : 'Gray',
    'نقره‌ای' : 'Gray',
    'خاکستری' : 'Gray',
-   'بژ': 'Brown'
+   'بژ': 'Brown',
+   'سرمه‌ای': 'Blue',
+   'زیتونی': 'Olive'
 }
 
-df['color'] = df['color'].replace(color_rep)
-df
+data4['color'] = data4['color'].replace(color_rep)
+data4
+
+
+
+df = pd.concat([df, data4], ignore_index=True)
+
+cols_to_check = [c for c in df.columns if c != "link"]
+
+df.duplicated(subset=cols_to_check).sum()
+df = df.drop_duplicates(subset=cols_to_check)
+
+# to make the color feature more in place
+# I made colors that look like each other into one 
+# category
+
+
 
 # save to csv
 df.to_csv('CSV/final.csv', index=False, encoding='utf-8')

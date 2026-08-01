@@ -30,7 +30,27 @@ In this project We are taking/getting Kia: Rio car prices and making Sense of th
 
 
 ## #3 EDA
+
+1. We found in My data that price (targer feature) is not
+in a good place (distribution wise) so I may need to get more data
+or limit and max out prices.
+
+2. we have 7 missing values in insurance column
+3. some outliers with `price` column -- think about how can you handle them
+4. Most important features for `price` column, is `date` & `mileage`
+
+
+
 ## #4 Data Preprocessing
+
+#### Important Note
+
+*Data Leakage Prevention*
+
+
+- We first should Train_test_split our data and get the median (mean) of the X_train and apply it to the X_test to prevent from data leakage.
+
+- build a column transform pipleline to handle numerical columns with standardScaler and categorical columns with OneHotEncoder
 ## #5 Baseline Model
 ## #6 Model Selection
 ## #7 HyperParameter Tuning
