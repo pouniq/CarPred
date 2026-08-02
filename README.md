@@ -51,7 +51,14 @@ or limit and max out prices.
 - We first should Train_test_split our data and get the median (mean) of the X_train and apply it to the X_test to prevent from data leakage.
 
 - build a column transform pipleline to handle numerical columns with standardScaler and categorical columns with OneHotEncoder
+
+- We've Decided that because at this moment we have near 50 data points I should have less categorical data because when I OneHotEncode I get lots of features and cause Overfitting.
+
 ## #5 Baseline Model
+
+**When I run a Linear Regression to this data my R2_score for training was like 0.7176106632234047, but when it came to test I GOT NEGATIVE R2_score suggesting that I for sure Overfitted my model**
+
+
 ## #6 Model Selection
 ## #7 HyperParameter Tuning
 ## #8 Training The best Model
