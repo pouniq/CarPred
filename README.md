@@ -66,6 +66,9 @@ or limit and max out prices.
 *first y_true then y_pred*
 
 
+Now the problem is **Underfitting**, my training r2_score is less than my test r2_score so I should try with better data and gather more data points for my model.
+
+
 ## #6 Model Selection
 ## #7 HyperParameter Tuning
 ## #8 Training The best Model
