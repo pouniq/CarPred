@@ -13,18 +13,11 @@ df = pd.read_csv(csv_file)
 df = df.drop(columns=['link','price_toman'])
 
 
-df
-
-train_df = df[0:40]
-test_df = df[40:]
-
-train_df.to_csv('train.csv', index=False)
-test_df.to_csv('test.csv', index=False)
-
-
-X = df.drop(columns=['price'])
+X = df[['mileage', 'date', 'insurance']]
 y = df['price']
-X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.2, random_state=RANDOM_STATE )
+
+X_train , X_test, y_train, y_test = train_test_split(X, y, random_state=RANDOM_STATE, shuffle=True, test_size=0.2)
+
 
 # Missing values in `insurance` column
 
@@ -33,12 +26,18 @@ X_train['insurance'] = X_train['insurance'].fillna(median)
 X_test['insurance'] = X_test['insurance'].fillna(median)
 
 
+
+X_train.to_csv('X_train.csv', index=False)
+X_test.to_csv('X_test.csv', index=False)
+
+
+y_train.to_csv('y_train.csv', index=False)
+y_test.to_csv('y_test.csv', index = False)
+
 ## Handling Outliers 
 ### no need for Outlier handling at this moment
-X_train
-X_test
 
-numeric_cols = X_train.columns.drop('color')
+numeric_cols = X_train.columns
 
 for col in numeric_cols:
     plt.boxplot(X_train[col])
@@ -49,19 +48,4 @@ plt.boxplot(np.log(y_train))
 plt.boxplot(y_train)
 plt.boxplot(y_test)
 
-
-
-
-## encode Categorical Data with OneHotEncoder
-numeric_cols = X_train.columns.drop('color')
-cat_cols = ['color']
-
-
-ColProcess = ColumnTransformer([
-    ('num', StandardScaler(), numeric_cols),
-    ('cat', OneHotEncoder(drop='first', handle_unknown='ignore'), cat_cols)
-])
-
-X_train_processed = ColProcess.fit_transform(X_train)
-X_test_processed = ColProcess.transform(X_test)
 
