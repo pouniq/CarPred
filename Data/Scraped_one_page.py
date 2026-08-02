@@ -21,13 +21,16 @@ def extract_numbers(text):
 
 
 
-full_links1 = ["https://divar.ir/v/%D8%B1%DB%8C%D9%88-%D9%85%D8%AF%D9%84-%DB%B1%DB%B3%DB%B9%DB%B0-%D8%A8%D8%AF%D9%88%D9%86-%D9%86%D9%82%D8%B7%D9%87-%D8%A7%DB%8C%DB%8C-%D8%B1%D9%86%DA%AF-%DA%A9%D9%85-%DA%A9%D8%A7%D8%B1-%D9%88%D8%A7%D9%82%D8%B9%D8%A7-%D8%B3%D8%A7%D9%84%D9%85/gaslW9jX?tracker_session_id=a4d1b2b6-7a9e-4cf6-a93b-a0fcfb690941_gaslW9jX_P",
-               "https://divar.ir/v/%DA%A9%DB%8C%D8%A7-%D8%B1%DB%8C%D9%88-%D9%85%D8%AF%D9%84-%DB%B1%DB%B3%DB%B8%DB%B8-%D8%A8%D8%B3%DB%8C%D8%A7%D8%B1-%D8%AA%D9%85%DB%8C%D8%B2-%DA%A9%D9%85-%DA%A9%D8%A7%D8%B1%DA%A9%D8%B1%D8%AF-164-%D8%AA%D8%A7/gaqlvZRw?tracker_session_id=a4d1b2b6-7a9e-4cf6-a93b-a0fcfb690941_gaqlvZRw_N",
-               "https://divar.ir/v/%D8%B1%DB%8C%D9%88-%DB%B8%DB%B9-%D8%AF%D8%B1%D8%AD%D8%AF/gaMFNLgs?tracker_session_id=a4d1b2b6-7a9e-4cf6-a93b-a0fcfb690941_gaMFNLgs_N",
-               "https://divar.ir/v/%D9%81%D8%B1%D9%88%D8%B4-%D8%B1%DB%8C%D9%88-88/garlOlSV?tracker_session_id=23b75716-f929-4480-aaee-6c1c7cce92a0_garlOlSV_N",
-               "https://divar.ir/v/%D8%B1%DB%8C%D9%88-%DB%B8%DB%B7/garFZQ7p?tracker_session_id=23b75716-f929-4480-aaee-6c1c7cce92a0_garFZQ7p_N"]
-
-
+full_links1 = ["https://divar.ir/v/%D9%81%D8%B1%D9%88%D8%B4-%D8%B1%DB%8C%D9%88-%D8%AE%D8%A7%D9%86%DA%AF%DB%8C-%D9%88-%D8%B3%D8%A7%D9%84%D9%85/gajtM-Iy?tracker_session_id=958f285d-d693-4c47-9414-b552f37f3ef2_gajtM-Iy_P",
+                "https://divar.ir/v/%D8%B1%DB%8C%D9%88-%D9%85%D8%AF%D9%84-87/gauZ__fJ?tracker_session_id=b73e4f38-f74f-4e9d-992b-170c875de2a0_gauZ__fJ_N",
+"https://divar.ir/v/%D8%B1%DB%8C%D9%88-%D8%A7%D8%AA%D9%88%D9%85%D8%A7%D8%AA%DB%8C%DA%A9-%DA%A9%D8%A7%D8%B1%D8%AE%D8%A7%D9%86%D9%87/gabJWd2i?tracker_session_id=3b80ad50-9541-43af-94c5-c1ac820cb947_gabJWd2i_P",
+"https://divar.ir/v/%D8%B1%DB%8C%D9%88-%D9%85%D8%AF%D9%84%DB%B8%DB%B9-%D8%AA%D9%85%DB%8C%D8%B2-%D8%AE%D8%A7%D9%86%DA%AF%DB%8C-%D8%B3%D8%A7%D9%84%D9%85/gauV_np5?tracker_session_id=81dd1e8a-cee8-48aa-bef5-3bfb4af29163_gauV_np5_N",
+"https://divar.ir/v/%D8%B1%DB%8C%D9%88-88/gaoBImRD?tracker_session_id=34c48c2c-b578-4537-89f8-ac0518826024_gaoBImRD_N",
+"https://divar.ir/v/%D8%B1%DB%8C%D9%88-%D9%85%D8%AF%D9%84-87-%D9%86%D9%88%DA%A9-%D9%85%D8%AF%D8%A7%D8%AF%DB%8C/gau5eWng?tracker_session_id=99ad18b9-fe07-449a-8333-9166f94642b8_gau5eWng_N",
+"https://divar.ir/v/%D8%B1%DB%8C%D9%88%DB%B8%DB%B5/gauxe96w?tracker_session_id=c30f71cc-3fb3-4539-8a53-d124348b195e_gauxe96w_N"
+"https://divar.ir/v/%D8%B1%DB%8C%D9%88-%DB%B8%DB%B6-%D8%A8%D8%AF%D9%88%D9%86-%D8%B1%D9%86%DA%AF-%D8%AA%D9%85%DB%8C%D8%B2/gaudug2R?tracker_session_id=4846e4ea-b673-409e-bb9b-85c576b593eb_gaudug2R_N",
+"https://divar.ir/v/%D8%B1%DB%8C%D9%88-%D9%85%D8%AF%D9%84-%DB%B9%DB%B0/gauJ-sxR?tracker_session_id=a1153f8d-0edb-4562-9dbb-8d3cd41cf28c_gauJ-sxR_N",
+"https://divar.ir/v/%D8%B1%DB%8C%D9%88-%D8%B2%DB%8C%D8%AA%D9%88%D9%86%DB%8C-%D9%85%D8%AF%D9%84-%DB%B8%DB%B6/gau5Nkal?tracker_session_id=5c5262b7-5912-44a0-abf1-c7161f252dac_gau5Nkal_N]"]
 pages = {}
 failed_debug_dir = "failed_pages"
 import os
