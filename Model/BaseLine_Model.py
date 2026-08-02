@@ -47,12 +47,18 @@ y_train_processed = np.log(y_train)
 
 model = LinearRegression()
 
-
+pipe = Pipeline([
+    ('processor', processor),
+    ('model', LinearRegression())
+])
 
 cv = KFold(n_splits=5, shuffle=True, random_state=RANDOM_STATE)
 
-scores = cross_val_score(model,X_train_processed, y_train_processed, cv = cv, scoring='r2' )
-print(scores.mean())
+scores = cross_val_score(pipe, X_train, y_train_processed, cv=cv, scoring='r2')
+
+
+
+
 
 model.fit(X_train_processed, y_train_processed)
 y_pred_train_log = model.predict(X_train_processed)
@@ -111,7 +117,8 @@ r2_score(y_train, y_pred_train_svr)
 y_pred_log_svr = model_svr.predict(X_test_processed)
 y_pred_svr = np.exp(y_pred_log_svr)
 
-r2_score(y_test, y_pred_ridge)
+r2_score(y_test, y_pred_svr)
 
 
 ###############################################################
+
