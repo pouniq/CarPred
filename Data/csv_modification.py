@@ -8,7 +8,7 @@ import re
 # lil_data = pd.read_csv("CSV/divar_listings.csv")
 
 # data4 = pd.read_csv('CSV/output2.csv')
-# data5 = pd.read_csv('CSV/output2.csv')
+data5 = pd.read_csv('CSV/output2.csv')
 
 # first extract the date of production from the `car` column
 # and for cars that do not have them look for that manually
@@ -20,19 +20,19 @@ df = pd.read_csv("CSV/final.csv")
 
 
 
-# persian_digits = "۰۱۲۳۴۵۶۷۸۹"
-# translation = str.maketrans(persian_digits, "0123456789")
+persian_digits = "۰۱۲۳۴۵۶۷۸۹"
+translation = str.maketrans(persian_digits, "0123456789")
 
-# def extract_numbers(text):
-#     normalized = text.translate(translation)
-#     normalized = normalized.replace(",", "").replace("،", "")  # strip both comma types
-#     return [int(n) for n in re.findall(r"\d+", normalized)]
+def extract_numbers(text):
+    normalized = text.translate(translation)
+    normalized = normalized.replace(",", "").replace("،", "")  # strip both comma types
+    return [int(n) for n in re.findall(r"\d+", normalized)]
 
 
-# data5["mileage"] = data5["mileage"].apply(lambda x: extract_numbers(x)[0] if extract_numbers(x) else None)
-# data5['date'] = data5['date'].apply(lambda x: extract_numbers(x)[0] if extract_numbers(x) else None)
+data5["mileage"] = data5["mileage"].apply(lambda x: extract_numbers(x)[0] if extract_numbers(x) else None)
+data5['date'] = data5['date'].apply(lambda x: extract_numbers(x)[0] if extract_numbers(x) else None)
 
-# data5['color'].unique()
+data5['color'].unique()
 
 
 
@@ -57,7 +57,7 @@ color_rep_two_cat = {
    'Blue': 'Dark'
 }
 
-# data5['color'] = data5['color'].replace(color_rep_two_cat)
+data5['color_2_cat'] = data5['color'].replace(color_rep_two_cat)
 df['color_2_cat'] = df['color'].replace(color_rep_two_cat)
 
 
@@ -69,9 +69,9 @@ def Convert_date(year):
     else:
        return year + 621
 
-# data5['date'] = data5['date'].apply(Convert_date)
+data5['date'] = data5['date'].apply(Convert_date)
 
-# df = pd.concat([df, data5], ignore_index=True)
+df = pd.concat([df, data5], ignore_index=True)
 
 
 cols_to_check = [c for c in df.columns if c != "link"]
