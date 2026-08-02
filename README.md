@@ -59,6 +59,13 @@ or limit and max out prices.
 **When I run a Linear Regression to this data my R2_score for training was like 0.7176106632234047, but when it came to test I GOT NEGATIVE R2_score suggesting that I for sure Overfitted my model**
 
 
+
+- one silly thing That I was doing, I was misplacing in r2_score the y_pred and y_true placement.
+
+  
+*first y_true then y_pred*
+
+
 ## #6 Model Selection
 ## #7 HyperParameter Tuning
 ## #8 Training The best Model
