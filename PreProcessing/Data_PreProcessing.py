@@ -13,11 +13,11 @@ df = pd.read_csv(csv_file)
 df = df.drop(columns=['link','price_toman'])
 
 
-X = df[['mileage', 'date', 'insurance']]
+X = df[['mileage', 'date', 'insurance', 'color_2_cat']]
 y = df['price']
 
 X_train , X_test, y_train, y_test = train_test_split(X, y, random_state=RANDOM_STATE, shuffle=True, test_size=0.2)
-
+X_train.groupby('color_2_cat').count()
 
 # Missing values in `insurance` column
 
@@ -37,7 +37,7 @@ y_test.to_csv('y_test.csv', index = False)
 ## Handling Outliers 
 ### no need for Outlier handling at this moment
 
-numeric_cols = X_train.columns
+numeric_cols = ['mileage', 'date', 'insurance']
 
 for col in numeric_cols:
     plt.boxplot(X_train[col])
@@ -45,7 +45,9 @@ for col in numeric_cols:
     plt.show()
 
 plt.boxplot(np.log(y_train))
+plt.boxplot(np.log(y_test))
 plt.boxplot(y_train)
 plt.boxplot(y_test)
+
 
 

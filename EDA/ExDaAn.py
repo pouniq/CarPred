@@ -56,8 +56,8 @@ print(df.value_counts())
 
 df.groupby('color').value_counts()
 
-df[num_cols].corr()
-sns.heatmap(num_cols.corr(), cmap = 'coolwarm')
+correlations = df[num_cols].corr()
+sns.heatmap(correlations, cmap = 'coolwarm')
 plt.show()
 
 

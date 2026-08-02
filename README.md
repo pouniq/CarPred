@@ -54,6 +54,12 @@ or limit and max out prices.
 
 - We've Decided that because at this moment we have near 50 data points I should have less categorical data because when I OneHotEncode I get lots of features and cause Overfitting.
 
+
+
+- I turned color values to just two category Light and Dark, Now I noticed Regarding the original colors I have misjudged the color and Now I should go back to a version that have the original colors
+
+  learned I should Always keep the original column in place when modifing and create a new column based on the original column
+
 ## #5 Baseline Model
 
 **When I run a Linear Regression to this data my R2_score for training was like 0.7176106632234047, but when it came to test I GOT NEGATIVE R2_score suggesting that I for sure Overfitted my model**

@@ -37,30 +37,29 @@ df = pd.read_csv("CSV/final.csv")
 
 
 
-# color_rep_two_cat = {
-#     'نوک‌مدادی': 'Light',
-#     'مشکی' : 'Dark',
-#     'سفید': 'Light',
-#     'موکا': 'Light',
-#     'قهوه‌ای': 'Dark',
-#     'طوسی' : 'Light',
-#    'نقره‌ای' : 'Light',
-#    'خاکستری' : 'Light',
-#    'بژ': 'Light',
-#    'سرمه‌ای': 'Dark',
-#    'زیتونی': 'Light',
-#    'Gray' : 'Light',
-#    'Black' : 'Dark',
-#    'White': 'Light',
-#    'Brown': 'Dark',
-#    'Olive': 'Light',
-#    'Blue': 'Dark'
-# }
+color_rep_two_cat = {
+    'نوک‌مدادی': 'Dark',
+    'مشکی' : 'Dark',
+    'سفید': 'Light',
+    'موکا': 'Dark',
+    'قهوه‌ای': 'Dark',
+    'طوسی' : 'Dark',
+   'نقره‌ای' : 'Dark',
+   'خاکستری' : 'Dark',
+   'بژ': 'Light',
+   'سرمه‌ای': 'Dark',
+   'زیتونی': 'Dark',
+   'Gray' : 'Dark',
+   'Black' : 'Dark',
+   'White': 'Light',
+   'Brown': 'Dark',
+   'Olive': 'Dark',
+   'Blue': 'Dark'
+}
 
 # data5['color'] = data5['color'].replace(color_rep_two_cat)
-# df['color'] = df['color'].replace(color_rep_two_cat)
+df['color_2_cat'] = df['color'].replace(color_rep_two_cat)
 
-# df = pd.concat([df, data5], ignore_index=True)
 
 
 def Convert_date(year):
@@ -70,7 +69,10 @@ def Convert_date(year):
     else:
        return year + 621
 
-df['date'] = df['date'].apply(Convert_date)
+# data5['date'] = data5['date'].apply(Convert_date)
+
+# df = pd.concat([df, data5], ignore_index=True)
+
 
 cols_to_check = [c for c in df.columns if c != "link"]
 
