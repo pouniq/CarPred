@@ -7,7 +7,8 @@ import re
 # data3 = pd.read_csv('CSV/output2.csv')
 # lil_data = pd.read_csv("CSV/divar_listings.csv")
 
-data4 = pd.read_csv('CSV/output2.csv')
+# data4 = pd.read_csv('CSV/output2.csv')
+data5 = pd.read_csv('CSV/output2.csv')
 
 # first extract the date of production from the `car` column
 # and for cars that do not have them look for that manually
@@ -28,10 +29,10 @@ def extract_numbers(text):
     return [int(n) for n in re.findall(r"\d+", normalized)]
 
 
-data4["mileage"] = data4["mileage"].apply(lambda x: extract_numbers(x)[0] if extract_numbers(x) else None)
-data4['date'] = data4['date'].apply(lambda x: extract_numbers(x)[0] if extract_numbers(x) else None)
+data5["mileage"] = data5["mileage"].apply(lambda x: extract_numbers(x)[0] if extract_numbers(x) else None)
+data5['date'] = data5['date'].apply(lambda x: extract_numbers(x)[0] if extract_numbers(x) else None)
 
-data4['color'].unique()
+data5['color'].unique()
 
 
 color_rep = {
@@ -48,12 +49,24 @@ color_rep = {
    'زیتونی': 'Olive'
 }
 
-data4['color'] = data4['color'].replace(color_rep)
-data4
 
+color_rep_two_cat = {
+    'نوک‌مدادی': 'Light',
+    'مشکی' : 'Dark',
+    'سفید': 'Light',
+    'موکا': 'Light',
+    'قهوه‌ای': 'Dark',
+    'طوسی' : 'Light',
+   'نقره‌ای' : 'Light',
+   'خاکستری' : 'Light',
+   'بژ': 'Light',
+   'سرمه‌ای': 'Dark',
+   'زیتونی': 'Light'
+}
 
+data5['color'] = data5['color'].replace(color_rep_two_cat)
 
-df = pd.concat([df, data4], ignore_index=True)
+df = pd.concat([df, data5], ignore_index=True)
 
 cols_to_check = [c for c in df.columns if c != "link"]
 
@@ -63,8 +76,6 @@ df = df.drop_duplicates(subset=cols_to_check)
 # to make the color feature more in place
 # I made colors that look like each other into one 
 # category
-
-
 
 # save to csv
 df.to_csv('CSV/final.csv', index=False, encoding='utf-8')

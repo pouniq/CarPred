@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-
+import matplotlib.pyplot as plt
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.model_selection import train_test_split
@@ -29,12 +29,28 @@ X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.2, random_s
 # Missing values in `insurance` column
 
 median = X_train['insurance'].median()
-X_train = X_train.fillna(median)
-X_test = X_test.fillna(median)
+X_train['insurance'] = X_train['insurance'].fillna(median)
+X_test['insurance'] = X_test['insurance'].fillna(median)
 
 
 ## Handling Outliers 
 ### no need for Outlier handling at this moment
+X_train
+X_test
+
+numeric_cols = X_train.columns.drop('color')
+
+for col in numeric_cols:
+    plt.boxplot(X_train[col])
+    plt.title(f'boxplot for {col}')
+    plt.show()
+
+plt.boxplot(np.log(y_train))
+plt.boxplot(y_train)
+plt.boxplot(y_test)
+
+
+
 
 ## encode Categorical Data with OneHotEncoder
 numeric_cols = X_train.columns.drop('color')

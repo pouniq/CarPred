@@ -51,8 +51,12 @@ X_test_processed = processor.transform(X_test)
 model = LinearRegression()
 model.fit(X_train_processed, y_train)
 
+
+y_pred_train = model.predict(X_train_processed)
 y_pred = model.predict(X_test_processed)
-r2_score(y_test, y_pred)
+
+r2_score(y_pred_train, y_train)
+r2_score(y_pred=y_pred, y_true=y_test)
 
 
 print(X_train.dtypes)
@@ -60,3 +64,8 @@ print(X_train.describe())
 print(y_train.describe())
 print(model.coef_)
 print(np.abs(y_pred - y_test).describe()) 
+
+plt.scatter(y_pred_train, y_train)
+plt.scatter(y_pred, y_test)
+
+
