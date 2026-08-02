@@ -35,19 +35,6 @@ data5['date'] = data5['date'].apply(lambda x: extract_numbers(x)[0] if extract_n
 data5['color'].unique()
 
 
-color_rep = {
-    'نوک‌مدادی': 'Gray',
-    'مشکی' : 'Black',
-    'سفید': 'White',
-    'موکا': 'Brown',
-    'قهوه‌ای': 'Brown',
-    'طوسی' : 'Gray',
-   'نقره‌ای' : 'Gray',
-   'خاکستری' : 'Gray',
-   'بژ': 'Brown',
-   'سرمه‌ای': 'Blue',
-   'زیتونی': 'Olive'
-}
 
 
 color_rep_two_cat = {
@@ -61,21 +48,29 @@ color_rep_two_cat = {
    'خاکستری' : 'Light',
    'بژ': 'Light',
    'سرمه‌ای': 'Dark',
-   'زیتونی': 'Light'
+   'زیتونی': 'Light',
+   'Gray' : 'Light',
+   'Black' : 'Dark',
+   'White': 'Light',
+   'Brown': 'Dark',
+   'Olive': 'Light',
+   'Blue': 'Dark'
 }
 
 data5['color'] = data5['color'].replace(color_rep_two_cat)
+df['color'] = df['color'].replace(color_rep_two_cat)
 
 df = pd.concat([df, data5], ignore_index=True)
 
 cols_to_check = [c for c in df.columns if c != "link"]
 
 df.duplicated(subset=cols_to_check).sum()
+df[df.duplicated(subset=cols_to_check)]
 df = df.drop_duplicates(subset=cols_to_check)
 
 # to make the color feature more in place
 # I made colors that look like each other into one 
 # category
-
+df['color'].unique()
 # save to csv
 df.to_csv('CSV/final.csv', index=False, encoding='utf-8')
