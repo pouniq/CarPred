@@ -1,0 +1,268 @@
+x <- ~/Downloads/final.csv
+x <- read.csv("~/Downloads/final.csv")
+x
+x $price
+z <- x $ price
+z
+length(z)
+plot(z)
+z / 1000000
+data <- z / 1000000
+plot(data)
+plot(z)
+plot(data)
+boxplot(data)
+data
+x $ price_toman
+data
+cor(data)
+cov(data)
+x
+cor(x)
+cov(z)
+mean(data)
+data
+rm(list=ls())
+data <- read.csv("~/Downloads/final.csv")
+data
+data $ price
+data $ col
+as.numric(data$price)
+as.numeric(data$price)
+as.numeric?
+}
+?as.numeric
+x <- as.numeric(data$price)
+x
+plot (x)
+abline(c(0,1))
+plot (x)
+abline(c(0,1))
+cor(x)
+data & date
+data & data
+data
+data $ date
+factor(data $ date)
+y <- factor(data $ date)
+plot(x,y)
+lm (x ~y )
+reg <- lm (x ~y )
+summary(reg)
+plot(x)
+hist(x)
+x1 <- x / 1000000
+x1
+plot(x1)
+hist(x1)
+hist(x1,probability=F)
+hist(x1,probability=T)
+?hist
+hist(x1,probability=F)
+hist(x1,freq=F)
+hist(x1,density=F)
+hist(x1,density=T)
+y
+plot(x,y)
+plot(x1,y)
+?hist
+qqplot(x1)
+qqnorm(x1)
+shapiro.test(x1)
+data $ mileage
+y <- data $ mileage
+plot(x1,y)
+y
+y/100
+y/1000
+y1<- y/1000
+plot(x1,y1)
+lm(x1 ~ y1)
+reg1 <- lm(x1 ~ y1)
+summary(reg1)
+anova(reg1)
+shapiro.test(y1)
+qqnorm(y1)
+qqchi(y1)
+qqplot(x1,y1)
+data <- read.csv("~/Desktop/CarPred/Data/CSV/final.csv")
+price <- data$price
+price1 <- price/1000000 # برای راحتی کار که داده ها مقدارشان خیلی بزرگ نباشد تمامی قیمت ها را بر یک میلیون تقسیم میکنیم
+plot (price1 , ylab="* 1000000")
+plot (price1 , ylab="* 1000000 kon")
+qqnorm(price1)
+shapiro.test(price1)
+mileage <- data$mileage
+mileage1<- mileage / 1000 #تمام داده های مربوط به کارکرد خود هارا برای راحتی تقسیم بر هزار میکنیم
+mileage1
+plot(mileage1)
+plot (price1 , mileage1 , xlab="* 1000000 kon", ylab="* 1000 kon")
+plot(price,mileage,main="Asli va Bedoone taaqir")
+qqnorm(mileage1)
+shapiro.test(mileage1)
+date <- data$date
+date
+is.character(data)
+as.character(data)
+as. character(date)
+date
+is. character(date)
+rm(list=ls())
+data <- read.csv("~/Desktop/CarPred/Data/CSV/final.csv")#
+price <- data$price#
+price1 <- price/1000000 # برای راحتی کار که داده ها مقدارشان خیلی بزرگ نباشد تمامی قیمت ها را بر یک میلیون تقسیم میکنیم #
+plot (price1 , ylab="* 1000000 kon")#
+qqnorm(price1)#
+shapiro.test(price1) # پر واضح است که داده های مربوط به قیمت ماشین از توزیع نرمال پیروی نمیکنند#
+mileage <- data$mileage#
+mileage1<- mileage / 1000 #تمام داده های مربوط به کارکرد خود هارا برای راحتی تقسیم بر هزار میکنیم#
+plot(mileage1)#
+plot (price1 , mileage1 , xlab="* 1000000 kon", ylab="* 1000 kon")#
+plot(price,mileage,main="Asli va Bedoone taaqir") # هیچگونه رابطه خطی بین کارکرد ماشین و قیمت ماشین دیده نمیشود !!#
+qqnorm(mileage1)#
+shapiro.test(mileage1)# داده های مربوط به کارکرد هم از توزیع نرمال پیروی نمیکنند
+date <- data$date
+date
+is.character(date)
+as.character(date)
+date1<- as.character(date)
+table(date1,price1)
+table(price1)
+table(date1)
+plot(price1,date)
+plot(price1,date1)
+plot(price1,date)
+plot(price1,date1)
+plot(price1,date)
+plot(price1,date1,mileage1)
+m <- cbind(price1,date1,mileage1)
+m
+as. numeric(m)
+is. numeric(m)
+is.numeric(m)
+as.numeric(m)
+m
+curve(m)
+curve(price1)
+price1
+lsd <- list(a=price1,b=mileage1,c=date)
+lsd
+lsd <- list(a=price1,b=mileage1,c=date1)
+lsd
+plot(lsd)
+lsd <- list(a=price1,b=mileage1,c=date)
+plot(lsd)
+lsd$a
+plot(lsd)
+df <- as.data.frame(lsd)
+df
+lsd <- list(a=price1,b=mileage1,c=date1)
+df <- as.data.frame(lsd)
+df
+data1
+date1
+df$c
+plot(df)
+lsd <- list(price=price1,mileage=mileage1,date=date1)
+df <- as.data.frame(lsd)
+df
+plot(df)
+lsd <- list(price=price1,mileage=mileage1,date=date)
+df <- as.data.frame(lsd)
+df
+df$c
+df$date
+plot(df)
+date <- data$date
+date1<- as.character(date)
+table(date1)
+lst <- list(price=price1,mileage=mileage1,date=date)
+dframe<- as.data.frame(lst)
+plot(dframe)
+date
+price1
+log(price)
+price2 <- log(price1)
+price2
+lst <- list(price=price2,mileage=mileage1,date=date)
+dframe<- as.data.frame(lst)
+plot(dframe)
+mileage2<- log(mileage1)
+mileage2
+lst <- list(price=price2,mileage=mileage2,date=date)
+dframe<- as.data.frame(lst)
+plot(dframe)
+mileage3 <- (mileage)^2
+mileage3 <- (mileage1)^2
+mileage1
+32 ^2
+mileage3
+256.000 ^2
+lst <- list(price=price2,mileage=mileage3,date=date)
+dframe<- as.data.frame(lst)
+plot(dframe)
+lst<- list(price=price2,mileage=mileage2,date=date)
+dframe <- as.data.frame(lst)
+plot(dframe)
+reg<- lm(price ~ . ,data=dframe)
+summary(reg)
+anova(reg)
+mileage3 <- (mileage1)^2
+lst <- list(price=price2,mileage=mileage3,date=date)
+dframe<- as.data.frame(lst)
+reg1 <- lm(price~ . , data=dframe)
+summary(reg1)
+anova(reg1)
+reg
+summary(reg)
+reg2 <- lm(price ~ date , data=dframe)
+summary(reg2)
+data <- read.csv("~/Desktop/CarPred/Data/CSV/final.csv")
+price <- data$price#
+price1 <- price/1000000 # برای راحتی کار که داده ها مقدارشان خیلی بزرگ نباشد تمامی قیمت ها را بر یک میلیون تقسیم میکنیم
+plot (price1 , ylab="* 1000000 kon")
+qqnorm(price1)
+data <- read.csv("~/Desktop/CarPred/Data/CSV/final.csv")#
+price <- data$price#
+price1 <- price/1000000 # برای راحتی کار که داده ها مقدارشان خیلی بزرگ نباشد تمامی قیمت ها را بر یک میلیون تقسیم میکنیم #
+plot (price1 , ylab="* 1000000 kon")#
+qqnorm(price1)#
+shapiro.test(price1) # پر واضح است که داده های مربوط به قیمت ماشین از توزیع نرمال پیروی نمیکنند#
+mileage <- data$mileage#
+mileage1<- mileage / 1000 #تمام داده های مربوط به کارکرد خود هارا برای راحتی تقسیم بر هزار میکنیم#
+plot(mileage1)#
+plot (price1 , mileage1 , xlab="* 1000000 kon", ylab="* 1000 kon")#
+plot(price,mileage,main="Asli va Bedoone taaqir") # هیچگونه رابطه خطی بین کارکرد ماشین و قیمت ماشین دیده نمیشود !!#
+qqnorm(mileage1)#
+shapiro.test(mileage1)# داده های مربوط به کارکرد هم از توزیع نرمال پیروی نمیکنند#
+date <- data$date#
+date1<- as.character(date)#
+table(date1)#
+lst <- list(price=price1,mileage=mileage1,date=date)#
+dframe<- as.data.frame(lst)#
+plot(dframe)#
+price2 <- log(price1)#
+lst <- list(price=price2,mileage=mileage1,date=date)#
+dframe<- as.data.frame(lst)#
+plot(dframe)#
+#رابطه بین متغیر قیمت و سال تولید خودرو خطی شد ! با بالا بودن سال تولید خودرو قیمت خودرو نیز افزایش می یابد ولی متغیر کارکرد ماشین هنوز درست نشده#
+mileage2<- log(mileage1)#
+lst <- list(price=price2,mileage=mileage2,date=date)#
+dframe<- as.data.frame(lst)#
+plot(dframe)#
+mileage3 <- (mileage1)^2#
+lst <- list(price=price2,mileage=mileage3,date=date)#
+dframe<- as.data.frame(lst)#
+plot(dframe)#
+#
+lst <- list(price=price2,mileage=mileage3,date=date)#
+dframe<- as.data.frame(lst)
+lst <- list(price=price1,mileage=mileage1,date=date)
+dframe<- as.data.frame(lst)
+cot(dframe)
+cor(dframe)
+dfrsme
+dframe
+lst <- list(price=price2,mileage=mileage2,date=date)
+dframe<- as.data.frame(lst)
+cor(dframe)
