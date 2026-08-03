@@ -189,3 +189,46 @@ r2_score(y_test, y_pred)
 
 
 ## need to hyper parameter tune for SVR model too, I have more paramters to work with.
+
+
+
+## HyperParameter Tuning for SVR model
+
+pipe_svr = Pipeline([
+    ('processor', processor),
+    ('model', SVR)
+    
+])
+
+
+param_grid = [
+    {
+        'kernel': ['rbf'],
+        'C': [0.1, 1, 10, 100, 1000],
+        'gamma': ['scale', 'auto', 0.001, 0.01, 0.1, 1],
+        'epsilon': [0.01, 0.1, 0.2, 0.5]
+    },
+    {
+        'kernel': ['linear'],
+        'C': [0.1, 1, 10, 100],
+        'epsilon': [0.01, 0.1, 0.2, 0.5]
+    },
+    {
+        'kernel': ['poly'],
+        'C': [0.1, 1, 10, 100],
+        'degree': [2, 3, 4],
+        'gamma': ['scale', 'auto'],
+        'epsilon': [0.01, 0.1, 0.2]
+    }
+]
+
+grid_svr = GridSearchCV(
+    estimator=pipe_svr,
+    param_grid=param_grid,
+    scoring='neg_mean_squared_error',
+    cv = 5,
+    n_jobs= -1,
+    verbose=1
+)
+
+grid_svr.fit(X_train,y_train)
