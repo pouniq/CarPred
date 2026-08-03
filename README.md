@@ -87,6 +87,9 @@ I am gonna HyperParameter Tune Ridge Regression Parameters to get the best Resul
 I choose for Now the support vector machine regressor because it have lower MSE than Ridge Regression.
 
 ## #8 Training The best Model
+
+the best model for now is A SVR model.
+
 ## #9 Model Evaluation
 
 In Model Evaluations when you put your target variable to np.log function, then after you train the model your should np.exp to get the real world result, We know that already, One trick is to use TransformedTargetRegressor to do that automatically with PipeLine like this:
@@ -103,6 +106,13 @@ model_log = TransformedTargetRegressor(
     inverse_func=np.exp
 ) 
 ```
+
+
+## #10 Deployment
+I deployed my app using Streamlit you can find it in here 👇
+[App Link](https://4gm9gphzgdzfv7vgd4tda6.streamlit.app/)
+
+
 
 
 ### @ Mehdi
