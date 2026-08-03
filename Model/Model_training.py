@@ -9,7 +9,7 @@ from sklearn.ensemble import GradientBoostingRegressor, RandomForestRegressor
 
 from sklearn.model_selection import GridSearchCV, KFold, cross_val_score
 from sklearn.preprocessing import StandardScaler , OneHotEncoder
-from sklearn.compose import ColumnTransformer
+from sklearn.compose import ColumnTransformer, TransformedTargetRegressor
 from sklearn.pipeline import Pipeline
 from sklearn.svm import SVR
 from joblib import dump
@@ -201,26 +201,12 @@ pipe_svr = Pipeline([
 ])
 
 
-param_grid = [
-    {
-        'model__kernel': ['rbf'],
-        'model__C': [0.1, 1, 10, 100, 1000],
-        'model__gamma': ['scale', 'auto', 0.001, 0.01, 0.1, 1],
-        'model__epsilon': [0.01, 0.1, 0.2, 0.5]
-    },
-    {
-        'model__kernel': ['linear'],
-        'model__C': [0.1, 1, 10, 100],
-        'model__epsilon': [0.01, 0.1, 0.2, 0.5]
-    },
-    {
-        'model__kernel': ['poly'],
-        'model__C': [0.1, 1, 10, 100],
-        'model__degree': [2, 3, 4],
-        'model__gamma': ['scale', 'auto'],
-        'model__epsilon': [0.01, 0.1, 0.2]
-    }
-]
+param_grid = {
+    'model__kernel': ['rbf'],
+    'model__C': [0.01,0.1,1,10,50],
+    'model__gamma': ['scale',0.001,0.01,0.05],
+    'model__epsilon': [0.05,0.1,0.2,0.5]
+}
 
 grid_svr = GridSearchCV(
     estimator=pipe_svr,
@@ -244,3 +230,68 @@ y_pred_log = grid_svr.predict(X_test)
 y_pred = np.exp(y_pred_log)
 r2_score(y_test, y_pred)
 
+
+## the SVR is the better model just by scoring = 'neg_mean_squared_error'
+## now we train the best model
+
+grid_svr.best_params_
+grid_svr.best_estimator_
+
+pipe_best = Pipeline([
+    ('process', processor),
+    ('model', SVR(C=10, epsilon=0.05, gamma=0.05, kernel='rbf'))
+])
+
+model_log = TransformedTargetRegressor(
+    regressor=pipe_best,
+    func=np.log,
+    inverse_func=np.exp
+)
+
+
+# if we used without TransformedTargetRegressor in our code
+
+# pipe_best.fit(X_train, y_train_processed)
+# y_train_pred_log = pipe_best.predict(X_train)
+# y_train_pred = np.exp(y_train_pred_log)
+# r2_score(y_pred_train_log, y_train_processed)
+# # after np.exp()
+# r2_score(y_train, y_train_pred)
+
+# r2_score(np.log(y_test), y_pred_log)
+#  after np.exp()
+# r2_score(y_test, y_pred)
+
+model_log.fit(X_train, y_train) 
+y_train_pred = model_log.predict(X_train)
+
+r2_score(y_train, y_train_pred)
+root_mean_squared_error(y_train, y_train_pred)
+
+
+# on test set
+
+y_pred = model_log.predict(X_test)
+r2_score(y_test, y_pred)
+
+
+## Model Eval
+
+
+residuals = y_test - y_pred
+
+plt.figure(figsize=(7,5))
+plt.scatter(y_pred, residuals, alpha=0.6)
+
+plt.axhline(0, color='red', linestyle='--')
+
+plt.xlabel("Predicted price")
+plt.ylabel("Residual")
+plt.title("SVR Residual Plot")
+
+plt.show()
+
+## save the model
+
+joblib_path = "/Users/pouniq/CarPrediction/Model/model_dir/SVR_Pipe.joblib"
+dump(model_log, joblib_path)

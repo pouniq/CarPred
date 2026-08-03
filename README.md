@@ -89,6 +89,21 @@ I choose for Now the support vector machine regressor because it have lower MSE 
 ## #8 Training The best Model
 ## #9 Model Evaluation
 
+In Model Evaluations when you put your target variable to np.log function, then after you train the model your should np.exp to get the real world result, We know that already, One trick is to use TransformedTargetRegressor to do that automatically with PipeLine like this:
+
+```python
+pipe_svr = Pipeline([
+    ('process', processor),
+    ('model', SVR())
+])
+
+model_log = TransformedTargetRegressor(
+    regressor=pipe_svr,
+    func=np.log,
+    inverse_func=np.exp
+) 
+```
+
 
 ### @ Mehdi
 

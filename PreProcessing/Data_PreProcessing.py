@@ -13,6 +13,8 @@ df = pd.read_csv(csv_file)
 df = df.drop(columns=['link','price_toman'])
 
 
+
+
 X = df[['mileage', 'date', 'insurance', 'color_2_cat']]
 y = df['price']
 
@@ -36,6 +38,7 @@ y_test.to_csv('y_test.csv', index = False)
 
 ## Handling Outliers 
 ### no need for Outlier handling at this moment
+
 
 numeric_cols = ['mileage', 'date', 'insurance']
 
