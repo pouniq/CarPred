@@ -196,29 +196,29 @@ r2_score(y_test, y_pred)
 
 pipe_svr = Pipeline([
     ('processor', processor),
-    ('model', SVR)
+    ('model', SVR())
     
 ])
 
 
 param_grid = [
     {
-        'kernel': ['rbf'],
-        'C': [0.1, 1, 10, 100, 1000],
-        'gamma': ['scale', 'auto', 0.001, 0.01, 0.1, 1],
-        'epsilon': [0.01, 0.1, 0.2, 0.5]
+        'model__kernel': ['rbf'],
+        'model__C': [0.1, 1, 10, 100, 1000],
+        'model__gamma': ['scale', 'auto', 0.001, 0.01, 0.1, 1],
+        'model__epsilon': [0.01, 0.1, 0.2, 0.5]
     },
     {
-        'kernel': ['linear'],
-        'C': [0.1, 1, 10, 100],
-        'epsilon': [0.01, 0.1, 0.2, 0.5]
+        'model__kernel': ['linear'],
+        'model__C': [0.1, 1, 10, 100],
+        'model__epsilon': [0.01, 0.1, 0.2, 0.5]
     },
     {
-        'kernel': ['poly'],
-        'C': [0.1, 1, 10, 100],
-        'degree': [2, 3, 4],
-        'gamma': ['scale', 'auto'],
-        'epsilon': [0.01, 0.1, 0.2]
+        'model__kernel': ['poly'],
+        'model__C': [0.1, 1, 10, 100],
+        'model__degree': [2, 3, 4],
+        'model__gamma': ['scale', 'auto'],
+        'model__epsilon': [0.01, 0.1, 0.2]
     }
 ]
 
@@ -231,4 +231,16 @@ grid_svr = GridSearchCV(
     verbose=1
 )
 
-grid_svr.fit(X_train,y_train)
+grid_svr.fit(X_train,y_train_processed)
+grid_svr.best_params_
+grid_svr.best_score_
+
+y_pred_train_log = grid_svr.predict(X_train)
+y_pred_train = np.exp(y_pred_train_log)
+r2_score(y_train, y_pred_train)
+
+
+y_pred_log = grid_svr.predict(X_test)
+y_pred = np.exp(y_pred_log)
+r2_score(y_test, y_pred)
+
