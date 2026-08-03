@@ -76,6 +76,8 @@ Now the problem is **Underfitting**, my training r2_score is less than my test r
 
 
 ## #6 Model Selection
+
+- between, Ridge Regression, Support Vector Machine, Gradient boosting Regression and Random Forest Regressor, the Choice based on R2_score is **Ridge Regression**.
 ## #7 HyperParameter Tuning
 ## #8 Training The best Model
 ## #9 Model Evaluation

@@ -5,7 +5,9 @@ import seaborn as sns
 
 
 from sklearn.linear_model import LinearRegression, Ridge, Lasso, ElasticNet
-from sklearn.model_selection import cross_validate, KFold, cross_val_score
+from sklearn.ensemble import GradientBoostingRegressor, RandomForestRegressor
+
+from sklearn.model_selection import GridSearchCV, KFold, cross_val_score
 from sklearn.preprocessing import StandardScaler , OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
@@ -31,6 +33,8 @@ y_train = pd.read_csv('../PreProcessing/y_train.csv')
 y_test = pd.read_csv('../PreProcessing/y_test.csv')
 
 
+y_train = y_train.values.ravel()
+y_test = y_test.values.ravel()
 
 num_cols = ['mileage', 'date', 'insurance']
 cat_cols = ['color_2_cat']
@@ -122,3 +126,66 @@ r2_score(y_test, y_pred_svr)
 
 ###############################################################
 
+
+models = {
+    'ridge': Ridge(),
+    'svr': SVR(),
+    'gbr': GradientBoostingRegressor(max_depth=3, n_estimators=100, random_state=RANDOM_STATE),
+    'rfr': RandomForestRegressor(max_depth=5, n_estimators=200, random_state=RANDOM_STATE)
+}
+
+for name, est in models.items():
+    pipe = Pipeline([('processor', processor), ('model', est)])
+    scores = cross_val_score(pipe, X_train, y_train_processed, cv=cv, scoring='r2')
+    print(f"{name}: mean R2 = {scores.mean():.3f}, std = {scores.std():.3f}")
+    
+    
+    
+
+print(X_train.shape)
+print(np.exp(y_train_processed).describe() if hasattr(y_train_processed, 'describe') else pd.Series(np.exp(y_train_processed)).describe())
+
+
+###############################################################
+###############################################################
+
+?Ridge
+# Model Selection Ridge was choosen then SVR, gbr and rfr in order
+
+pipe = Pipeline(
+    [
+        ('processor', processor),
+        ('model', Ridge() )
+    ]
+)
+
+param_grid = {
+    'model__alpha': [0.001, 0.01, 0.1, 1.0, 10, 100, 1000 ],
+    
+}
+
+
+grid = GridSearchCV(
+    pipe,
+    param_grid=param_grid,
+    scoring='neg_mean_squared_error',
+    cv = 5
+)
+
+
+grid.fit(X_train, y_train_processed)
+
+grid.best_params_
+grid.best_score_
+
+y_pred_train_log = grid.predict(X_train)
+y_pred_train = np.exp(y_pred_train_log)
+r2_score(y_train, y_pred_train)
+
+
+y_pred_log = grid.predict(X_test)
+y_pred = np.exp(y_pred_log)
+r2_score(y_test, y_pred)
+
+
+## need to hyper parameter tune for SVR model too, I have more paramters to work with.
