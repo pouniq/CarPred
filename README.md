@@ -78,7 +78,15 @@ Now the problem is **Underfitting**, my training r2_score is less than my test r
 ## #6 Model Selection
 
 - between, Ridge Regression, Support Vector Machine, Gradient boosting Regression and Random Forest Regressor, the Choice based on R2_score is **Ridge Regression**.
+
+
 ## #7 HyperParameter Tuning
+
+Ridge regression have only One Hyper parameter that I can tweak with the `alpha` value.
+
+I have In mind that I am gonna also hyper parameter the next best model Called Support Vector Regressor (SVR) because that model have more HyperParameters and more room to change.
+
+
 ## #8 Training The best Model
 ## #9 Model Evaluation
 
