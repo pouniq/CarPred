@@ -56,7 +56,11 @@ color_rep_two_cat = {
    'Olive': 'Dark',
    'Blue': 'Dark',
    'آلبالویی': 'Light',
-   'زرشکی': 'Dark'
+   'زرشکی': 'Dark',
+   'سفید صدفی': 'Light',
+   'آبی': 'Light',
+   'قرمز': 'Light',
+   'سایر': 'Light' # I saw the pic it was like light purple
 }
 
 data5['color_2_cat'] = data5['color'].replace(color_rep_two_cat)

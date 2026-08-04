@@ -57,7 +57,7 @@ print(df.value_counts())
 df.groupby('color_2_cat').value_counts()
 
 correlations = df[num_cols].corr()
-sns.heatmap(correlations, cmap = 'coolwarm')
+sns.heatmap(correlations, cmap = 'coolwarm', annot=True)
 plt.show()
 
 
@@ -98,7 +98,7 @@ df[num_cols].groupby(df['color_2_cat']).mean()
 df[num_cols].groupby(df['color_2_cat']).median()
 
 
-sns.pairplot(df, hue='color')
+sns.pairplot(df, hue='color_2_cat')
 plt.tight_layout()
 plt.show()
 

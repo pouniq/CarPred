@@ -24,7 +24,7 @@ X_train.groupby('color_2_cat').count()
 # Missing values in `insurance` column
 
 median = X_train['insurance'].median()
-#mean = X_train['insurance'].mean()
+# mean = X_train['insurance'].mean()
 X_train['insurance'] = X_train['insurance'].fillna(median)
 X_test['insurance'] = X_test['insurance'].fillna(median)
 
@@ -55,3 +55,15 @@ plt.boxplot(y_test)
 
 
 
+
+
+Q1 = df['price'].quantile(0.25)
+Q3 = df['price'].quantile(0.75)
+IQR = Q3 - Q1
+
+lower = Q1 - 1.5 * IQR
+upper = Q3 + 1.5 * IQR
+
+outliers = df[(df['price'] < lower) | (df['price'] > upper)]
+
+print(outliers)
