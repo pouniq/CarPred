@@ -24,6 +24,7 @@ X_train.groupby('color_2_cat').count()
 # Missing values in `insurance` column
 
 median = X_train['insurance'].median()
+#mean = X_train['insurance'].mean()
 X_train['insurance'] = X_train['insurance'].fillna(median)
 X_test['insurance'] = X_test['insurance'].fillna(median)
 

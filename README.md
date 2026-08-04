@@ -39,6 +39,8 @@ or limit and max out prices.
 3. some outliers with `price` column -- think about how can you handle them
 4. Most important features for `price` column, is `date` & `mileage`
 
+5. Walk Through the EDA step again and I found out some data are Not even in Kia Rio brand And they are in here, so I deleted those and they were mostly a outlier, Now I expect that my model perform better than before.
+
 
 
 ## #4 Data Preprocessing

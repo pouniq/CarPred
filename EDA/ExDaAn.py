@@ -54,7 +54,7 @@ for col in num_cols:
 print(df.value_counts())
 
 
-df.groupby('color').value_counts()
+df.groupby('color_2_cat').value_counts()
 
 correlations = df[num_cols].corr()
 sns.heatmap(correlations, cmap = 'coolwarm')
@@ -89,13 +89,13 @@ for x,y in num_pairs:
    
    
 plt.figure(figsize=(5,3))
-sns.boxplot(x = df['color'] , y= df['price'])
+sns.boxplot(x = df['color_2_cat'] , y= df['price'])
 plt.title('Color vs Price boxplot')
 
 
-df[num_cols].groupby(df['color']).count()
-df[num_cols].groupby(df['color']).mean()
-df[num_cols].groupby(df['color']).median()
+df[num_cols].groupby(df['color_2_cat']).count()
+df[num_cols].groupby(df['color_2_cat']).mean()
+df[num_cols].groupby(df['color_2_cat']).median()
 
 
 sns.pairplot(df, hue='color')

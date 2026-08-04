@@ -1,4 +1,5 @@
-data <- read.csv("~/Desktop/CarPred/Data/CSV/final.csv")
+data <- read.csv("/Users/pouniq/CarPrediction/Data/CSV/final.csv")
+
 price <- data$price
 price1 <- price/1000000 # برای راحتی کار که داده ها مقدارشان خیلی بزرگ نباشد تمامی قیمت ها را بر یک میلیون تقسیم میکنیم 
 plot (price1 , ylab="* 1000000 kon")
@@ -45,3 +46,4 @@ cor(dframe)
 lst <- list(price=price2,mileage=mileage2,date=date)
 dframe<- as.data.frame(lst)
 cor(dframe)
+

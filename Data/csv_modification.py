@@ -55,7 +55,8 @@ color_rep_two_cat = {
    'Brown': 'Dark',
    'Olive': 'Dark',
    'Blue': 'Dark',
-   'آلبالویی': 'Light'
+   'آلبالویی': 'Light',
+   'زرشکی': 'Dark'
 }
 
 data5['color_2_cat'] = data5['color'].replace(color_rep_two_cat)

@@ -9,8 +9,8 @@ from joblib import load
 
 load_dotenv()
 
-PROJECT_ROOT = Path(os.getenv("PROJECT_ROOT"))
-MODEL_PATH = PROJECT_ROOT / os.getenv("MODEL_DIR") / os.getenv("MODEL_NAME")
+PROJECT_ROOT = Path(__file__).resolve().parent
+MODEL_PATH = PROJECT_ROOT / "model_dir" / "SVR_Pipe.joblib"
 LOG_PATH = PROJECT_ROOT / os.getenv("LOG_DIR")
 LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
 

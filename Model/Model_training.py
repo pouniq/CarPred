@@ -49,6 +49,7 @@ X_test_processed = processor.transform(X_test)
 y_train_processed = np.log(y_train)
 
 
+
 model = LinearRegression()
 
 pipe = Pipeline([
@@ -128,29 +129,26 @@ r2_score(y_test, y_pred_svr)
 
 
 models = {
+    'linear': LinearRegression(),
     'ridge': Ridge(),
     'svr': SVR(),
     'gbr': GradientBoostingRegressor(max_depth=3, n_estimators=100, random_state=RANDOM_STATE),
     'rfr': RandomForestRegressor(max_depth=5, n_estimators=200, random_state=RANDOM_STATE)
 }
 
+
+
 for name, est in models.items():
     pipe = Pipeline([('processor', processor), ('model', est)])
-    scores = cross_val_score(pipe, X_train, y_train_processed, cv=cv, scoring='r2')
-    print(f"{name}: mean R2 = {scores.mean():.3f}, std = {scores.std():.3f}")
+    scores = cross_val_score(pipe, X_train, y_train_processed, cv=cv, scoring='neg_mean_squared_error')
+    print(f"{name}: MSE = {-scores.mean():.3f}, std = {scores.std():.3f}")
     
     
     
-
-print(X_train.shape)
-print(np.exp(y_train_processed).describe() if hasattr(y_train_processed, 'describe') else pd.Series(np.exp(y_train_processed)).describe())
-
-
 ###############################################################
 ###############################################################
-
-?Ridge
 # Model Selection Ridge was choosen then SVR, gbr and rfr in order
+# Now after feeding some data points the best model is randomforestRegressor
 
 pipe = Pipeline(
     [
@@ -239,7 +237,7 @@ grid_svr.best_estimator_
 
 pipe_best = Pipeline([
     ('process', processor),
-    ('model', SVR(C=10, epsilon=0.05, gamma=0.05, kernel='rbf'))
+    ('model', SVR(C=10, epsilon=0.2, gamma=0.05, kernel='rbf'))
 ])
 
 model_log = TransformedTargetRegressor(
@@ -274,7 +272,6 @@ root_mean_squared_error(y_train, y_train_pred)
 y_pred = model_log.predict(X_test)
 r2_score(y_test, y_pred)
 
-
 ## Model Eval
 
 
@@ -291,7 +288,79 @@ plt.title("SVR Residual Plot")
 
 plt.show()
 
+
+
+## making Pipline for RandomForestRegressor Now
+
+pipe_best_n = Pipeline(
+    [
+        ('processor', processor),
+        ('model', RandomForestRegressor())
+    ]
+)
+
+
+param_grid_rf = {
+    'model__n_estimators': [200, 500, 800],
+    'model__max_depth': [5, 10, 20, 30],
+    'model__min_samples_split': [5, 10, 20],
+    'model__min_samples_leaf': [2, 4, 6, 8],
+    'model__max_features': ['sqrt', 'log2', 0.3, 0.5],
+    'model__bootstrap': [True],
+    'model__max_leaf_nodes': [20, 50, 100],
+    'model__ccp_alpha': [0.0, 0.0001, 0.001, 0.01]
+}
+
+
+grid_rf = GridSearchCV(
+    estimator=pipe_best_n,
+    param_grid=param_grid_rf,
+    scoring='neg_mean_squared_error',
+    cv = 5,
+    n_jobs= -1,
+    verbose=1
+    
+)
+
+grid_rf.fit(X_train, y_train)
+
+
+grid_rf.best_params_
+-grid_rf.best_score_
+np.sqrt(-grid_rf.best_score_)
+
+
+pip = Pipeline(
+    [
+        ('processor', processor),
+        ('model', RandomForestRegressor(bootstrap=True,
+                                        max_depth=10,
+                                        max_features='sqrt',
+                                        min_samples_leaf=1,
+                                        min_samples_split=2,
+                                        n_estimators=200))
+    ]
+)
+
+
+
+model_log_rf = TransformedTargetRegressor(
+    regressor=pip,
+    func=np.log,
+    inverse_func=np.exp
+)
+
+model_log_rf.fit(X_train, y_train)
+
+
+y_pred_train = model_log_rf.predict(X_train)
+r2_score(y_train, y_pred_train)
+
+y_pred = model_log_rf.predict(X_test)
+r2_score(y_test, y_pred)
+
+
 ## save the model
 
-joblib_path = "/Users/pouniq/CarPrediction/Model/model_dir/SVR_Pipe.joblib"
+joblib_path = "/Users/pouniq/CarPrediction/Deployment/model_dir/SVR_Model.joblib"
 dump(model_log, joblib_path)
