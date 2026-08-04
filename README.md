@@ -81,6 +81,8 @@ Now the problem is **Underfitting**, my training r2_score is less than my test r
 
 - between, Ridge Regression, Support Vector Machine, Gradient boosting Regression and Random Forest Regressor, the Choice based on R2_score is **Ridge Regression**.
 
+- now that I got more data, the simple model of LinearRegression worked marvelously and model R2 come to near 70 percent in both train and test, that shows there is not problem of overfitting.
+
 
 
 ## #7 HyperParameter Tuning
@@ -88,9 +90,18 @@ I am gonna HyperParameter Tune Ridge Regression Parameters to get the best Resul
 
 I choose for Now the support vector machine regressor because it have lower MSE than Ridge Regression.
 
+
+there is no real need for HyperParameter tuning the linear regression, I tested Ridge regression too but the chosen alpha was 0 meaning the simple linear regression was chosen even then.
+
+
 ## #8 Training The best Model
 
 the best model for now is A SVR model.
+
+
+**now the best model is LinearRegression**
+
+
 
 ## #9 Model Evaluation
 
@@ -115,7 +126,6 @@ I deployed my app using Streamlit you can find it in here 👇
 
 
 [App Link](https://4gm9gphzgdzfv7vgd4tda6.streamlit.app/)
-
 
 
 
