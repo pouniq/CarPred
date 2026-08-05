@@ -5,6 +5,8 @@ import seaborn as sns
 
 
 from sklearn.linear_model import LinearRegression, Ridge, Lasso, ElasticNet
+import statsmodels.api as 
+
 from sklearn.ensemble import GradientBoostingRegressor, RandomForestRegressor
 
 from sklearn.model_selection import GridSearchCV, cross_val_score, RepeatedKFold, KFold
@@ -176,6 +178,65 @@ r2_score(y_test, y_pred)
 
 
 
+## check the regression model
+
+
+lr = model_log.regressor_.named_steps["model"]  # fitted LinearRegression
+print("Intercept:", lr.intercept_)
+print("Coefficients:", lr.coef_)
+
+
+
+
+X_train_proc = processor.fit_transform(X_train)
+X_train_sm = sm.add_constant(X_train_proc)
+
+ols_model = sm.OLS(np.log(y_train), X_train_sm).fit()
+print(ols_model.summary())
+
+
+resid = ols_model.resid
+fitted = ols_model.fittedvalues
+
+plt.scatter(fitted, resid)
+
+# Drop x3 first (higher p-value = weaker evidence), refit
+X_train_no_x3 = np.delete(X_train_proc, 2, axis=1)  # column index 2 = x3
+ols_no_x3 = sm.OLS(np.log(y_train), sm.add_constant(X_train_no_x3)).fit()
+print(ols_no_x3.summary())
+
+
+resid = ols_no_x3.resid
+fitted = ols_no_x3.fittedvalues
+
+plt.scatter(fitted, resid)
+
+
+# Now test whether x4 also drops cleanly from this smaller model
+X_train_no_x3_x4 = np.delete(X_train_proc, [2, 3], axis=1)
+ols_no_x3_x4 = sm.OLS(np.log(y_train), sm.add_constant(X_train_no_x3_x4)).fit()
+print(ols_no_x3_x4.summary())
+
+resid = ols_no_x3_x4.resid
+fitted = ols_no_x3_x4.fittedvalues
+
+plt.scatter(fitted, resid)
+
+
+# Joint F-test: does removing x3 AND x4 together significantly hurt fit vs. the full model?
+f_test = ols_model.compare_f_test(ols_no_x3_x4)
+print("F-stat:", f_test[0], "p-value:", f_test[1])
+processor.get_feature_names_out()
+
+
+
+
+
+# we concluded that we the `insurance` and `Color_2_cat` do not have any
+# influence to our model at this time.
+
+
+
 ###############################################################
 ###############################################################
 # Let's Tune Ridge Alpha to see whether or not we improve the model
@@ -229,5 +290,5 @@ r2_score(y_test, y_pred)
 
 ## save the model
 
-joblib_path = "/Users/pouniq/CarPrediction/Deployment/model_dir/SVR_Model.joblib"
+joblib_path = "/Users/pouniq/CarPrediction/Deployment/model_dir/Linear_Model.joblib"
 dump(model_log, joblib_path)
