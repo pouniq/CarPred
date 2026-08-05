@@ -5,7 +5,7 @@ import seaborn as sns
 
 
 from sklearn.linear_model import LinearRegression, Ridge, Lasso, ElasticNet
-import statsmodels.api as 
+import statsmodels.api as sm
 
 from sklearn.ensemble import GradientBoostingRegressor, RandomForestRegressor
 
@@ -184,7 +184,6 @@ r2_score(y_test, y_pred)
 lr = model_log.regressor_.named_steps["model"]  # fitted LinearRegression
 print("Intercept:", lr.intercept_)
 print("Coefficients:", lr.coef_)
-
 
 
 
