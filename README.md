@@ -122,7 +122,7 @@ model_log = TransformedTargetRegressor(
 
 
 ## #10 Deployment
-I deployed my app using Streamlit you can find it in here 👇
+I deployed my Model using Streamlit you can find it in here 👇
 
 
 [App Link](https://4gm9gphzgdzfv7vgd4tda6.streamlit.app/)
