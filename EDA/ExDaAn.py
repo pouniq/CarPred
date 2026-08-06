@@ -3,11 +3,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+
+
 df_link = "../Data/CSV/final.csv"
 
 df = pd.read_csv(df_link)
 df = df.drop(columns=['link','price_toman'])
-
+df
 
 df.shape
 df.dtypes
@@ -16,7 +18,7 @@ df.columns
 print(df.nunique())
 df.describe().T
 
-# we have 7 missing values in insurance column
+# we have 20 missing values in insurance column
 
 num_cols = df.select_dtypes(np.number).columns
 cat_cols = df.select_dtypes(str).columns
