@@ -58,6 +58,8 @@ color_rep_two_cat = {
    'آلبالویی': 'Light',
    'زرشکی': 'Dark',
    'سفید صدفی': 'Light',
+   'اطلسی': 'Dark',
+   'دلفینی': 'Dark', 
    'آبی': 'Light',
    'قرمز': 'Light',
    'سایر': 'Light' # I saw the pic it was like light purple

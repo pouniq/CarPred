@@ -15,8 +15,18 @@ df = df.drop(columns=['link','price_toman'])
 
 
 
+
+df.duplicated().sum()
+df = df.drop_duplicates()
+
+
+
+
+
 X = df[['mileage', 'date', 'insurance', 'color_2_cat']]
 y = df['price']
+
+
 
 X_train , X_test, y_train, y_test = train_test_split(X, y, random_state=RANDOM_STATE, shuffle=True, test_size=0.2)
 X_train.groupby('color_2_cat').count()

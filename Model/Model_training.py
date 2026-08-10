@@ -112,7 +112,7 @@ r2_score(y_test, y_pred_ridge)
 
 
 ####### SVM REGRESSOR #####################################
-
+# OVERFITTING HEAVLY
 model_svr = SVR()
 model_svr.fit(X_train_processed, y_train_processed)
 
@@ -220,6 +220,18 @@ resid = ols_no_x3_x4.resid
 fitted = ols_no_x3_x4.fittedvalues
 
 plt.scatter(fitted, resid)
+
+
+plt.scatter(X_train['insurance'], y_train)
+
+# I found out that deleting X3 and X4 from this 
+# linear regression model do not effect the model 
+# at all and I can Confidently say that, there is no use
+# for `insurance` & `color_2_cat`
+
+
+
+
 
 
 # Joint F-test: does removing x3 AND x4 together significantly hurt fit vs. the full model?
