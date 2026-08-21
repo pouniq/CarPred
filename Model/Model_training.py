@@ -41,6 +41,7 @@ y_test = y_test.values.ravel()
 
 num_cols = ['mileage', 'date', 'insurance']
 cat_cols = ['color_2_cat']
+
 processor = ColumnTransformer([
     ('numerical columns', StandardScaler(), num_cols),
     ('categorical columns', OneHotEncoder(drop='first', handle_unknown='ignore'), cat_cols)
@@ -63,8 +64,6 @@ pipe = Pipeline([
 cv = KFold(n_splits=5, shuffle=True, random_state=RANDOM_STATE)
 
 scores = cross_val_score(pipe, X_train, y_train_processed, cv=cv, scoring='r2')
-
-
 
 
 
@@ -204,12 +203,16 @@ X_train_no_x3 = np.delete(X_train_proc, 2, axis=1)  # column index 2 = x3
 ols_no_x3 = sm.OLS(np.log(y_train), sm.add_constant(X_train_no_x3)).fit()
 print(ols_no_x3.summary())
 
-
+print(processor.get_feature_names_out())
 resid = ols_no_x3.resid
 fitted = ols_no_x3.fittedvalues
 
 plt.scatter(fitted, resid)
 
+
+X_ins = sm.add_constant(X_train['insurance'])
+price_to_insurance = sm.OLS(np.log(y_train), X_ins).fit()
+print(price_to_insurance.summary())
 
 # Now test whether x4 also drops cleanly from this smaller model
 X_train_no_x3_x4 = np.delete(X_train_proc, [2, 3], axis=1)
@@ -250,54 +253,6 @@ processor.get_feature_names_out()
 
 ###############################################################
 ###############################################################
-# Let's Tune Ridge Alpha to see whether or not we improve the model
-
-
-# pip_best_R = Pipeline(
-#     [
-#         ('processor', processor),
-#         ("model", Ridge())
-#     ]
-# )
-
-
-# model_log = TransformedTargetRegressor(
-#     regressor=pip_best_R,
-#     func=np.log,
-#     inverse_func=np.exp
-# )
-
-# param_grid_ridge = {
-#     'regressor__model__alpha': [0,0.001, 0.01, 0.1, 1, 10, 100]
-# }
-
-# grid = GridSearchCV(
-#     model_log,
-#     param_grid=param_grid_ridge,
-#     scoring='neg_root_mean_squared_error',
-#     cv = 5,
-#     n_jobs= -1,
-#     verbose=1
-# )
-
-# grid.fit(X_train, y_train)
-# grid.best_score_
-# grid.best_params_
-
-# y_pred_train = grid.predict(X_train)
-# r2_score(y_train, y_pred_train)
-
-# in gridsearch it is confirmed that the linear Regression is the best model for this model at this moment
-
-
-
-
-
-
-
-
-
-
 
 ## save the model
 

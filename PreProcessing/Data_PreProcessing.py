@@ -39,7 +39,6 @@ X_train['insurance'] = X_train['insurance'].fillna(median)
 X_test['insurance'] = X_test['insurance'].fillna(median)
 
 
-
 X_train.to_csv('X_train.csv', index=False)
 X_test.to_csv('X_test.csv', index=False)
 

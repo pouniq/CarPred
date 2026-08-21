@@ -3,12 +3,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+pd.set_option('display.float_format', lambda x: f'{x:,.0f}')
 
 
 df_link = "../Data/CSV/final.csv"
 
 df = pd.read_csv(df_link)
-df = df.drop(columns=['link','price_toman'])
+df = df.drop(columns=['link','price_toman', 'color'])
 df
 
 df.shape
@@ -42,6 +43,9 @@ df[num_cols].var()
 df[num_cols].std()
 
 
+Total_median = df['insurance'].median()
+Total_mean = df['insurance'].mean()
+df['insurance'] = df['insurance'].fillna(Total_mean)
 
 for col in num_cols:
     plt.figure(figsize=(10,7))
@@ -112,4 +116,5 @@ plt.show()
 # 2. we have 7 missing values in insurance column
 # 3. some outliers with `price` column -- think about how can you handle them
 # 4. Most important features for `price` column is `date` & `mileage`
+# 5. I should Drop `color_2_cat` and insurance out of the equations. (it will not work on linear models i know that for sure)
 ########################################
