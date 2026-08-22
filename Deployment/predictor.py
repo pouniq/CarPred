@@ -11,7 +11,7 @@ load_dotenv()
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 MODEL_PATH = PROJECT_ROOT / "model_dir" / "Linear_Model.joblib"
-LOG_PATH = PROJECT_ROOT / os.getenv("LOG_DIR")
+LOG_PATH = PROJECT_ROOT / os.getenv("LOG_DIR", "logs")
 LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
 
 
