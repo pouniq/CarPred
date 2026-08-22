@@ -94,7 +94,7 @@ model_log = TransformedTargetRegressor(
 I deployed my Model using Streamlit you can find it in here 👇
 
 
-[App Link](https://4gm9gphzgdzfv7vgd4tda6.streamlit.app/)
+[App Link](https://carpred2.streamlit.app/)
 
 
 
