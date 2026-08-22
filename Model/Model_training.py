@@ -39,12 +39,12 @@ y_test = pd.read_csv('../PreProcessing/y_test.csv')
 y_train = y_train.values.ravel()
 y_test = y_test.values.ravel()
 
-num_cols = ['mileage', 'date', 'insurance']
-cat_cols = ['color_2_cat']
+num_cols = ['mileage', 'date']
+# cat_cols = ['color_2_cat']
 
 processor = ColumnTransformer([
     ('numerical columns', StandardScaler(), num_cols),
-    ('categorical columns', OneHotEncoder(drop='first', handle_unknown='ignore'), cat_cols)
+    # ('categorical columns', OneHotEncoder(drop='first', handle_unknown='ignore'), cat_cols)
 ])
 
 X_train_processed = processor.fit_transform(X_train)
@@ -157,7 +157,7 @@ for name, est in models.items():
 pip_best = Pipeline(
     [
         ('processor', processor),
-        ("model", LinearRegression())
+        ("model", SVR())
     ]
 )
 
@@ -175,6 +175,34 @@ r2_score(y_train, y_pred_train)
 y_pred = model_log.predict(X_test)
 r2_score(y_test, y_pred)
 
+
+# hyperParameter Tune SVR model.
+
+param_grid = {
+    'regressor__model__kernel': ['rbf', 'linear'],
+    'regressor__model__C': [0.1, 1, 10,11],  
+    'regressor__model__epsilon': [0.01, 0.05, 0.08, 0.1, 0.2] ,
+    'regressor__model__gamma': ['scale', 0.0001, 0.001, 0.01, 0.1]  
+}
+
+grid = GridSearchCV(
+    model_log,
+    param_grid,
+    scoring='neg_mean_squared_error',
+    cv=cv,
+    n_jobs=-1,
+    verbose=1
+)
+
+grid.fit(X_train, y_train)
+-grid.best_score_
+grid.best_params_
+
+y_pred_train = grid.predict(X_train)
+r2_score(y_train , y_pred_train)
+
+y_pred = grid.predict(X_test)
+r2_score(y_test, y_pred)
 
 
 ## check the regression model
@@ -218,6 +246,12 @@ print(price_to_insurance.summary())
 X_train_no_x3_x4 = np.delete(X_train_proc, [2, 3], axis=1)
 ols_no_x3_x4 = sm.OLS(np.log(y_train), sm.add_constant(X_train_no_x3_x4)).fit()
 print(ols_no_x3_x4.summary())
+
+
+X_ins = sm.add_constant(X_train['cat_2_color'])
+price_to_insurance = sm.OLS(np.log(y_train), X_ins).fit()
+print(price_to_insurance.summary())
+
 
 resid = ols_no_x3_x4.resid
 fitted = ols_no_x3_x4.fittedvalues
