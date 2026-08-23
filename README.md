@@ -1,106 +1,103 @@
 ![Figure1](<back.jpg>)
 
+# Kia Rio Price Prediction
+A regression project that scrapes, cleans, and analyzes Kia Rio listing data to predict resale price — with a deployed Streamlit app for interactive predictions.
 
-# Cars_prediction
-
-
-## #1 Problem Statement
-
-In this project We are getting Kia: Rio car prices and making Sense of that data.
-
-
-
-## #2 Data Source
-
-### folder in use: `Data`
-1. run `scraped_one_page.py` script with the links you want to get data from.
-2. go through `csv_modification.py` to get a Cohesive dataset saved into `CSV` folder.   
+## Summary
+- Goal: Predict Kia Rio resale price from listing data (mileage, date, color, insurance time, etc.)
+- Best model: Linear Regression
+- Result: R² ≈ 0.70 on both train and test sets, with no meaningful overfitting
+- Key drivers: mileage and date were the most important predictors of price
 
 
 
-## #3 EDA
-
-1. We found in My data that price (targer feature) is not
-in a good place (distribution wise) so I may need to get more data
-or limit and max out prices.
-
-2. we have 30 missing values in insurance column
-3. outliers in `price` column -- think about how can you handle them
-4. Most important features for `price` column, is `date` & `mileage`
-
-5. Walk Through the EDA step again and I found out some data are Not even in Kia Rio brand And they are in here, so I deleted those and they were mostly a outlier, Now I expect that my model perform better than before.
-
-
-
-
-## #4 Data Preprocessing
-
-#### Important Note
-
-*Data Leakage Prevention*
-
-- We first should Train_test_split our data and get the median (mean) of the X_train and apply it to the X_test to prevent from data leakage.
-
-- build a column transform pipleline to handle numerical columns with standardScaler and categorical columns with OneHotEncoder
-
-- We've Decided that because at this moment we have near 200 data points I should have less categorical data because when I OneHotEncode I get lots of features and cause Overfitting.
-
-- I turned color values to just two category Light and Dark, Now I noticed Regarding the original colors I have misjudged the color and Now I should go back to a version that have the original colors
-
-  learned I should Always keep the original column in place when modifing and create a new column based on the original column
-
-## #5 Baseline Model
-I used LinearRegression for my baseline model and it worked good enough.
-
-
-## #6 Model Selection
-
-- between, Ridge Regression, Support Vector Machine, Gradient boosting Regression and Random Forest Regressor, the Choice based on RMSE is **Linear Regression**.
-
-- now that I got more data, the simple model of LinearRegression worked marvelously and model R2 come to near 70 percent in both train and test, that shows there is not problem of overfitting.
-
-
-
-## #7 HyperParameter Tuning
-
-there is no real need for HyperParameter tuning the linear regression, I tested Ridge regression too but the chosen alpha was 0 meaning the simple linear regression was chosen even then.
-
-
-## #8 Training The best Model
-
-**now the best model is LinearRegression**
-
-
-
-## #9 Model Evaluation
-
-In Model Evaluations when you put your target variable to np.log function, then after you train the model your should np.exp to get the real world result, We know that already, One trick is to use TransformedTargetRegressor to do that automatically with PipeLine like this:
-
-```python
-pipe_svr = Pipeline([
-    ('process', processor),
-    ('model', SVR())
-])
-
-model_log = TransformedTargetRegressor(
-    regressor=pipe_svr,
-    func=np.log,
-    inverse_func=np.exp
-) 
+## Project Structure:
+```
+├── Data/            # Scraping scripts and raw/cleaned CSVs
+├── EDA/              # Exploratory data analysis notebooks
+├── PreProcessing/     # Data cleaning and pipeline construction
+├── Model/             # Model training, selection, and evaluation
+├── Deployment/        # Streamlit app code
+├── requirements.txt
+└── README.md
 ```
 
 
-## #10 Deployment
-I deployed my Model using Streamlit you can find it in here 👇
+## How to Run:
+
+### 1. clone the repo and install dependencies: 
+```
+   git clone https://github.com/pouniq/CarPred.git
+   cd CarPred
+   pip install -r requirements.txt
+```
+
+### 2. Scrape fresh data
+
+```
+   cd Data
+   python scraped_one_page.py   # provide listing URLs as input
+   python csv_modification.py   # produces a cleaned CSV
+```
+### 3. running the deployed app
+
+```
+   cd Deployment
+   streamlit run app.py
+
+```
+
+## Methodology
+### Data
+
+Listing data was scraped for Kia Rio cars and consolidated into a single cleaned CSV.
+
+#### Exploratory Data Analysis
+- The target variable (price) had a skewed distribution, which motivated a log transform later in the pipeline.
+- ~30 missing values were found in the insurance column.
+- Outliers were identified in price, including several listings that turned out not to be Kia Rios at all — these were removed after further inspection.
+- date and mileage emerged as the strongest predictors of price.
 
 
-[App Link](https://carpred2.streamlit.app/)
+#### Preprocessing
+
+- Applied train_test_split before computing any statistics (medians/means) to prevent data leakage — training-set statistics are reused on the test set, never recomputed on it.
+- Built a ColumnTransformer pipeline: StandardScaler for numerical features, OneHotEncoder for categorical features.
+- With only ~200 data points, categorical cardinality was kept low to avoid overfitting from one-hot encoding — e.g., color was engineered into a binary Light/Dark feature, while the original color column was preserved alongside it for reference.
 
 
+#### Modeling
+- Baseline: Linear Regression, which performed well out of the box.
+- Compared: Ridge Regression, SVM, Gradient Boosting, and Random Forest — Linear Regression had the lowest RMSE.
 
-### @ Mehdi
+Hyperparameter tuning: Tested Ridge regularization strengths; the optimal alpha converged to 0, confirming plain Linear Regression as the best choice.
 
-- [x]  چک کردن درست بودن دیتا ها با توجه به لینکهایی که در هر سطر قرار داره
-- [x]  ذخیره و تهیه لینک های مربوط به ماشین `کیا ریو`
-- [x]  بررسی داده های گمشده با توجه به لینک های هر سطر
-- [x]  تغییر سال های شمسی به میلادی و یک دست کردن سالهای تولید
+
+Target transform: Used TransformedTargetRegressor to apply np.log/np.exp automatically within the pipeline:
+
+```python
+  pipe_svr = Pipeline([
+      ('process', processor),
+      ('model', SVR())
+  ])
+
+  model_log = TransformedTargetRegressor(
+      regressor=pipe_svr,
+      func=np.log,
+      inverse_func=np.exp
+  )
+```
+## Results
+
+Final Linear Regression model achieved R² ≈ 0.70 on both train and test sets, indicating a reasonable fit without overfitting given the dataset size.
+
+## Deployment
+
+The final model is deployed as an interactive Streamlit app: 
+
+[STREAMLIT APP](carpred2.streamlit.app)
+
+## Notes
+
+Data verification and collection tasks were tracked collaboratively (link validation, listing accuracy checks, Persian-to-Gregorian year conversion for consistent production years).
+
